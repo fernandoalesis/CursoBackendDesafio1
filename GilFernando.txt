@@ -1,0 +1,67 @@
+class Usuario {
+  constructor(nombre, apellido, libros, mascotas) {
+    this.nombre = String(nombre);
+    this.apellido = String(apellido);
+    this.libros =
+      libros === undefined || libros === null ? undefined : new Array(libros);
+
+    this.mascotas =
+      mascotas === undefined || mascotas === null
+        ? undefined
+        : new Array(mascotas);
+  }
+  getFullName() {
+    return `${this.nombre} ${this.apellido}`;
+  }
+  addMascota(m) {
+    if (m === null || arguments.length === 0) {
+      return;
+    } else if (Array.isArray(this.mascotas)) {
+      this.mascotas.push(m);
+    } else {
+      this.mascotas = [];
+      this.mascotas.push(m);
+    }
+  }
+  countMascotas() {
+    if (Array.isArray(this.mascotas)) return this.mascotas.length;
+  }
+  addBook(nombre, autor) {
+    const libro = {
+      nombre: !nombre || nombre === null ? undefined : String(nombre),
+      autor: !autor || autor === null ? undefined : String(autor),
+    };
+
+    if (Array.isArray(this.libros)) {
+      this.libros.push(libro);
+    } else {
+      this.libros = [];
+      this.libros.push(libro);
+    }
+  }
+  getBooksNames() {
+    if (Array.isArray(this.libros)) {
+      const nombresLibros = [];
+      this.libros.forEach((libro) => {
+        nombresLibros.push(libro.nombre);
+      });
+      return console.log(nombresLibros);
+    } else {
+      return undefined;
+    }
+  }
+}
+
+const usuario = new Usuario("Elon", "Musk");
+console.log(usuario.getFullName());
+usuario.addMascota("Perro");
+usuario.addMascota("Gato");
+console.log(usuario.mascotas);
+console.log(usuario.countMascotas());
+
+usuario.addBook("El senor de las moscas", "William Golding");
+usuario.addBook("Fundacion", "Isaac Asimov");
+console.log(usuario.libros);
+
+usuario.getBooksNames();
+
